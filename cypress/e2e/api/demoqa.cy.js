@@ -4,7 +4,7 @@ import { UserInfo } from '../../fixtures/userInfo';
 describe('DemoQA API Tests', () => {
   const userInfo = new UserInfo();
 
-  it('should create a new user', () => {
+  it('DEMO001 - should create a new user', () => {
     cy.createUser(userInfo.getUser()).then((response) => {
       expect(response.status).to.eq(expectedResponses.createUser.success.status);
       expect(response.body.username).to.eq(userInfo.getUser().userName);
@@ -14,7 +14,7 @@ describe('DemoQA API Tests', () => {
     });
   });
 
-  it('should generate token for the user', () => {
+  it('DEMO002 - should generate token for the user', () => {
     cy.generateToken(userInfo.getUser()).then((response) => {
       expect(response.body.token).to.not.be.empty;
       expect(response.body.expires).to.not.be.empty;
@@ -25,14 +25,14 @@ describe('DemoQA API Tests', () => {
       });
   });
 
-  it('should confirm user authorization', () => {
+  it('DEMO003 - should confirm user authorization', () => {
     cy.getUser(userInfo.getUser()).then((response) => {
       expect(response.status).to.eq(expectedResponses.getUser.success.status);
       expect(response.body).to.eq(expectedResponses.getUser.success.response);
     });
   });
 
-  it('should list all books', () => {
+  it('DEMO004 - should list all books', () => {
     cy.getBooks().then((response) => {
       expect(response.status).to.eq(expectedResponses.listBooks.success.status);
       expect(response.body.books).to.have.length.greaterThan(0);
@@ -40,7 +40,7 @@ describe('DemoQA API Tests', () => {
     });
   });
 
-  it('should add books to the user', () => {
+  it('DEMO005 - should add books to the user', () => {
     cy.addBooksToUser(userInfo.getUserID(), userInfo.getToken(), expectedResponses.addBooksToUser.success.isbnBooksList).then((response) => {
       expect(response.status).to.eq(expectedResponses.addBooksToUser.success.status);
       expect(response.body.books).to.have.length(expectedResponses.addBooksToUser.success.isbnBooksList.length);
@@ -49,7 +49,7 @@ describe('DemoQA API Tests', () => {
     });      
   });
 
-  it('should get user info', () => {
+  it('DEMO006 - should get user info', () => {
     cy.userInfoBooks(userInfo.getUserID(), userInfo.getToken()).then((response) => {
       expect(response.status).to.eq(expectedResponses.userInfoBooks.success.status);
       expect(response.body.username).to.eq(userInfo.getUser().userName);
